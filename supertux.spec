@@ -9,7 +9,7 @@ Source0:	http://pingus.seul.org/~grumbel/tmp/%{name}-%{version}.tar.bz2
 # Source0-md5:	c867f5444b93bf66044b4dc087be2298
 #Source0:	http://dl.sourceforge.net/super-tux/%{name}-%{version}.tar.bz2
 Source1:	%{name}.desktop
-URL:		http://www.newbreedsoftware.com/supertux/
+URL:		http://super-tux.sourceforge.net/
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake
 BuildRequires:	OpenGL-devel
