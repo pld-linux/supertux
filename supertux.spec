@@ -4,7 +4,7 @@ Name:		supertux
 Version:	0.0.6
 Release:	1
 License:	GPL
-Group:		Applications/Games
+Group:		X11/Applications/Games
 Source0:	http://dl.sourceforge.net/super-tux/%{name}-%{version}.tar.bz2
 # Source0-md5:	c5763a70bc397653f051953cd0ec1b44
 Source1:	%{name}.desktop
