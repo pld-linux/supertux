@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=SuperTux
+Comment=Game similar to the original game Super Mario Bros
+Comment[pl]=Gra podobna do oryginalnej gry Super Mario Bros
+Exec=supertux
+Terminal=false
+Icon=supertux.png
+Type=Application
+Encoding=UTF-8
+Categories=Application;Game;Arcade;
+# vi: encoding=utf-8
