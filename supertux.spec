@@ -1,21 +1,21 @@
 Summary:	Game similar to the original game Super Mario Bros
 Summary(pl):	Gra podobna do oryginalnej gry Super Mario Bros
 Name:		supertux
-Version:	0.1.0
+Version:	0.1.1
 Release:	1
 License:	GPL
 Group:		X11/Applications/Games
-Source0:	http://pingus.seul.org/~grumbel/tmp/%{name}-%{version}.tar.bz2
-# Source0-md5:	c867f5444b93bf66044b4dc087be2298
-#Source0:	http://dl.sourceforge.net/super-tux/%{name}-%{version}.tar.bz2
+Source0:	http://dl.sourceforge.net/super-tux/%{name}-%{version}.tar.bz2
+# Source0-md5:	5a6fdf8e0aa4e5b4adbd573a11576f9c
+#Source0:	http://pingus.seul.org/~grumbel/tmp/%{name}-%{version}.tar.bz2
 Source1:	%{name}.desktop
 URL:		http://super-tux.sourceforge.net/
-BuildRequires:	autoconf >= 2.54
-BuildRequires:	automake
 BuildRequires:	OpenGL-devel
 BuildRequires:	SDL-devel >= 1.2.4
 BuildRequires:	SDL_image-devel
 BuildRequires:	SDL_mixer-devel
+BuildRequires:	autoconf >= 2.54
+BuildRequires:	automake
 Requires:	OpenGL
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -47,7 +47,7 @@ install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir}}
 	DESTDIR=$RPM_BUILD_ROOT
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
-install data/images/icon.png $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.png
+install data/images/icon.xpm $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.xpm
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -58,4 +58,4 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/%{name}
 %{_desktopdir}/*.desktop
-%{_pixmapsdir}/*.png
+%{_pixmapsdir}/*.xpm
