@@ -8,7 +8,6 @@ Group:		Applications/Games
 Source0:	http://dl.sourceforge.net/super-tux/%{name}-%{version}.tar.bz2
 # Source0-md5:	c5763a70bc397653f051953cd0ec1b44
 Source1:	%{name}.desktop
-Patch0:		%{name}-datadir.patch
 URL:		http://www.newbreedsoftware.com/supertux/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -16,8 +15,6 @@ BuildRequires:	SDL-devel >= 1.2.4
 BuildRequires:	SDL_image-devel
 BuildRequires:	SDL_mixer-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define tuxdir	%{_datadir}/games/%{name}
 
 %description
 Super Mario Bros style game starring Tux the penguin.
@@ -27,7 +24,6 @@ Gra w stylu Super Mario Bros z pingwinem Tuksem w roli g³ównej.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__aclocal}
@@ -41,8 +37,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir}}
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	pkgdatadir=%{tuxdir}
+	DESTDIR=$RPM_BUILD_ROOT
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 install data/images/icon.png $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.png
@@ -54,6 +49,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog LEVELDESIGN README TODO.txt
 %attr(755,root,root) %{_bindir}/*
-%{tuxdir}
+%{_datadir}/%{name}
 %{_desktopdir}/*.desktop
 %{_pixmapsdir}/*.png
