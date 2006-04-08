@@ -2,13 +2,14 @@ Summary:	Game similar to the original game Super Mario Bros
 Summary(pl):	Gra podobna do oryginalnej gry Super Mario Bros
 Name:		supertux
 Version:	0.1.3
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications/Games
 Source0:	http://download.berlios.de/supertux/%{name}-%{version}.tar.bz2
 # Source0-md5:	f2fc288459f33d5cd8f645fbca737a63
 #Source0:	http://pingus.seul.org/~grumbel/tmp/%{name}-%{version}.tar.bz2
 Source1:	%{name}.desktop
+Patch0:		%{name}-gcc4.patch
 URL:		http://super-tux.sourceforge.net/
 BuildRequires:	OpenGL-devel
 BuildRequires:	SDL-devel >= 1.2.4
@@ -29,6 +30,7 @@ Gra w stylu Super Mario Bros z pingwinem Tuksem w roli g³ównej.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__aclocal} -I mk/autoconf
