@@ -1,22 +1,23 @@
 Summary:	Game similar to the original game Super Mario Bros
 Summary(pl):	Gra podobna do oryginalnej gry Super Mario Bros
 Name:		supertux
-Version:	0.1.3
-Release:	2
+Version:	0.3.0
+Release:	1
 License:	GPL
 Group:		X11/Applications/Games
 Source0:	http://download.berlios.de/supertux/%{name}-%{version}.tar.bz2
-# Source0-md5:	f2fc288459f33d5cd8f645fbca737a63
-#Source0:	http://pingus.seul.org/~grumbel/tmp/%{name}-%{version}.tar.bz2
-Source1:	%{name}.desktop
-Patch0:		%{name}-gcc4.patch
-URL:		http://super-tux.sourceforge.net/
+# Source0-md5:	454760a0a1d3f8ea6e54829e838cd94d
+Patch0:		%{name}-desktop.patch
+URL:		http://supertux.berlios.de/
+BuildRequires:	OpenAL-devel
 BuildRequires:	OpenGL-devel
 BuildRequires:	SDL-devel >= 1.2.4
-BuildRequires:	SDL_image-devel
-BuildRequires:	SDL_mixer-devel
+BuildRequires:	SDL_image-devel >= 1.2.1
 BuildRequires:	autoconf >= 2.54
-BuildRequires:	automake
+BuildRequires:	jam
+BuildRequires:	libstdc++-devel >= 5:3.2
+BuildRequires:	libvorbis-devel
+BuildRequires:	physfs-devel >= 1.0.0
 Requires:	OpenGL
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -34,30 +35,46 @@ Gra w stylu Super Mario Bros z pingwinem Tuksem w roli g³ównej.
 
 %build
 %{__aclocal} -I mk/autoconf
+%{__autoheader}
 %{__autoconf}
-%{__automake}
 %configure \
 	%{?debug:--enable-debug}%{!?debug:--disable-debug}
-
-%{__make}
+jam
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir}}
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+jam -s DESTDIR=$RPM_BUILD_ROOT install
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
-install data/images/icon.xpm $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.xpm
+# the same as supertux.png
+rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/supertux.xpm
+
+rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/locale/messages.pot
+rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog LEVELDESIGN README TODO
-%attr(755,root,root) %{_bindir}/*
-%{_datadir}/%{name}
-%{_desktopdir}/*.desktop
-%{_pixmapsdir}/*.xpm
+%doc README WHATSNEW.txt
+%attr(755,root,root) %{_bindir}/supertux
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/images
+%{_datadir}/%{name}/levels
+%dir %{_datadir}/%{name}/locale
+%lang(cs) %{_datadir}/%{name}/locale/cs.po
+%lang(da) %{_datadir}/%{name}/locale/da.po
+%lang(de) %{_datadir}/%{name}/locale/de.po
+%lang(es) %{_datadir}/%{name}/locale/es.po
+%lang(hu) %{_datadir}/%{name}/locale/hu.po
+%lang(nn) %{_datadir}/%{name}/locale/nn.po
+%lang(pt_BR) %{_datadir}/%{name}/locale/pt_BR.po
+%lang(sl) %{_datadir}/%{name}/locale/sl.po
+%lang(sv) %{_datadir}/%{name}/locale/sv.po
+%{_datadir}/%{name}/music
+%{_datadir}/%{name}/scripts
+%{_datadir}/%{name}/sounds
+%{_datadir}/%{name}/credits.txt
+%{_desktopdir}/supertux.desktop
+%{_pixmapsdir}/supertux.png
