@@ -1,5 +1,5 @@
 Summary:	Game similar to the original game Super Mario Bros
-Summary(pl.UTF-8):   Gra podobna do oryginalnej gry Super Mario Bros
+Summary(pl.UTF-8):	Gra podobna do oryginalnej gry Super Mario Bros
 Name:		supertux
 Version:	0.1.3
 Release:	2
