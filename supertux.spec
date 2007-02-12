@@ -1,5 +1,5 @@
 Summary:	Game similar to the original game Super Mario Bros
-Summary(pl):	Gra podobna do oryginalnej gry Super Mario Bros
+Summary(pl.UTF-8):   Gra podobna do oryginalnej gry Super Mario Bros
 Name:		supertux
 Version:	0.3.0
 Release:	1
@@ -26,8 +26,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 Super Mario Bros style game starring Tux the penguin.
 
-%description -l pl
-Gra w stylu Super Mario Bros z pingwinem Tuksem w roli g≥Ûwnej.
+%description -l pl.UTF-8
+Gra w stylu Super Mario Bros z pingwinem Tuksem w roli g≈Ç√≥wnej.
 
 %prep
 %setup -q
