@@ -18,6 +18,7 @@ BuildRequires:	OpenGL-devel
 BuildRequires:	SDL-devel >= 1.2.5
 BuildRequires:	SDL_image-devel >= 1.2.1
 BuildRequires:	cmake >= 2.6
+BuildRequires:	glew-devel
 BuildRequires:	libstdc++-devel >= 5:3.2
 BuildRequires:	libvorbis-devel
 BuildRequires:	physfs-devel >= 1.0.0
