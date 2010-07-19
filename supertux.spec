@@ -44,9 +44,6 @@ cd build
 	-DCMAKE_BUILD_TYPE=%{!?debug:Release}%{?debug:Debug} \
 	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
 	-DINSTALL_SUBDIR_BIN="bin"
-%if "%{_lib}" == "lib64"
-	-DLIB_SUFFIX=64
-%endif
 
 %{__make}
 
