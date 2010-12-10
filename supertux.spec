@@ -7,7 +7,6 @@ License:	GPL
 Group:		X11/Applications/Games
 Source0:	http://download.berlios.de/supertux/%{name}-%{version}.tar.bz2
 # Source0-md5:	f2fc288459f33d5cd8f645fbca737a63
-#Source0:	http://pingus.seul.org/~grumbel/tmp/%{name}-%{version}.tar.bz2
 Source1:	%{name}.desktop
 Patch0:		%{name}-gcc4.patch
 URL:		http://super-tux.sourceforge.net/
@@ -49,7 +48,7 @@ install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir}}
 	DESTDIR=$RPM_BUILD_ROOT
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
-install data/images/icon.xpm $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.xpm
+cp -a data/images/icon.xpm $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.xpm
 
 %clean
 rm -rf $RPM_BUILD_ROOT
