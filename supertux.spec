@@ -12,6 +12,7 @@ Group:		X11/Applications/Games
 Source0:	http://download.berlios.de/supertux/%{name}-%{version}.tar.bz2
 # Source0-md5:	f3f803e629ee51a9de0b366a036e393d
 Patch0:		%{name}-desktop.patch
+Patch1:		%{name}-system_squirrel.patch
 URL:		http://supertux.berlios.de/
 BuildRequires:	OpenAL-devel
 BuildRequires:	OpenGL-devel
@@ -22,6 +23,8 @@ BuildRequires:	glew-devel
 BuildRequires:	libstdc++-devel >= 5:3.2
 BuildRequires:	libvorbis-devel
 BuildRequires:	physfs-devel >= 1.0.0
+BuildRequires:	rpmbuild(macros) >= 1.600
+BuildRequires:	squirrel-devel
 Requires:	OpenGL
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -36,13 +39,14 @@ Gra w stylu Super Mario Bros z pingwinem Tuksem w roli głównej.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
-install -d build
+mkdir -p build
 cd build
+export CFLAGS="%{rpmcflags} -I/usr/include/squirrel"
+export CXXFLAGS="%{rpmcxxflags} -I/usr/include/squirrel"
 %cmake .. \
-	-DCMAKE_BUILD_TYPE=%{!?debug:Release}%{?debug:Debug} \
-	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
 	-DINSTALL_SUBDIR_BIN="bin"
 
 %{__make}
@@ -54,9 +58,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 # the same as supertux.png
-rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/supertux.xpm
-
-rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/locale/messages.pot
+%{__rm} $RPM_BUILD_ROOT%{_pixmapsdir}/supertux.xpm
 
 %clean
 rm -rf $RPM_BUILD_ROOT
