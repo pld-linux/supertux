@@ -1,0 +1,10 @@
+--- SuperTux-v0.6.3-Source/external/partio_zip/zip_manager.hpp~	2021-12-22 23:01:58.000000000 +0000
++++ SuperTux-v0.6.3-Source/external/partio_zip/zip_manager.hpp	2023-11-23 15:05:20.751307765 +0000
+@@ -44,6 +44,7 @@
+ #include <fstream>
+ #include <iostream>
+ #include <map>
++#include <memory>
+ #include <string>
+ #include <stdexcept>
+ #include <vector>
