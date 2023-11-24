@@ -10,7 +10,7 @@ Group:		X11/Applications/Games
 Source0:	https://github.com/SuperTux/supertux/releases/download/v%{version}/SuperTux-v%{version}-Source.tar.gz
 # Source0-md5:	798d5518d3f4672ee0bac92693063c2f
 Patch0:		%{name}-0.6.3-missing-headers.patch
-URL:		http://super-tux.sourceforge.net/
+URL:		https://www.supertux.org
 BuildRequires:	GLM
 BuildRequires:	OpenAL-devel
 BuildRequires:	OpenGL-devel
