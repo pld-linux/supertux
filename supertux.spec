@@ -1,25 +1,42 @@
+%bcond_with discord	# Discord integration
+#
 Summary:	Game similar to the original game Super Mario Bros
 Summary(pl.UTF-8):	Gra podobna do oryginalnej gry Super Mario Bros
 Name:		supertux
-Version:	0.1.3
-Release:	3
+Version:	0.6.3
+Release:	1
 License:	GPL
 Group:		X11/Applications/Games
-Source0:	http://download.berlios.de/supertux/%{name}-%{version}.tar.bz2
-# Source0-md5:	f2fc288459f33d5cd8f645fbca737a63
-Source1:	%{name}.desktop
-Patch0:		%{name}-gcc4.patch
+Source0:	https://github.com/SuperTux/supertux/releases/download/v%{version}/SuperTux-v%{version}-Source.tar.gz
+# Source0-md5:	798d5518d3f4672ee0bac92693063c2f
+Patch0:		%{name}-0.6.3-missing-headers.patch
 URL:		http://super-tux.sourceforge.net/
+BuildRequires:	GLM
+BuildRequires:	OpenAL-devel
 BuildRequires:	OpenGL-devel
-BuildRequires:	SDL-devel >= 1.2.4
-BuildRequires:	SDL_image-devel
-BuildRequires:	SDL_mixer-devel
-BuildRequires:	autoconf >= 2.54
-BuildRequires:	automake
+BuildRequires:	SDL2-devel >= 2.0.1
+BuildRequires:	SDL2_image-devel >= 2.0.0
+BuildRequires:	boost-devel
+BuildRequires:	cmake
+BuildRequires:	curl-devel
+BuildRequires:	doxygen
+BuildRequires:	freetype-devel
+BuildRequires:	fribidi-devel
+BuildRequires:	glew-devel
+BuildRequires:	graphviz
+BuildRequires:	harfbuzz-devel
+BuildRequires:	libogg-devel
+BuildRequires:	libpng-devel
+BuildRequires:	libraqm-devel
+BuildRequires:	libvorbis-devel
+BuildRequires:	physfs-devel
+BuildRequires:	pkgconfig
+BuildRequires:	rpmbuild(macros) >= 1.742
+BuildRequires:	zlib-devel
 Requires:	OpenGL
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define	_noautoreqdep	libGL.so.1 libGLU.so.1
+#%define	_noautoreqdep	libGL.so.1 libGLU.so.1
 
 %description
 Super Mario Bros style game starring Tux the penguin.
@@ -27,36 +44,53 @@ Super Mario Bros style game starring Tux the penguin.
 %description -l pl.UTF-8
 Gra w stylu Super Mario Bros z pingwinem Tuksem w roli głównej.
 
+%post
+%update_desktop_database_post
+%update_icon_cache hicolor
+
+%postun
+%update_desktop_database_postun
+%update_icon_cache hicolor
+
 %prep
-%setup -q
+%setup -q -n SuperTux-v%{version}-Source
 %patch0 -p1
 
 %build
-%{__aclocal} -I mk/autoconf
-%{__autoconf}
-%{__automake}
-%configure \
-	%{?debug:--enable-debug}%{!?debug:--disable-debug}
+mkdir -p build
+cd build
+%cmake .. \
+	-DINSTALL_SUBDIR_BIN=bin \
+	%{cmake_on_off discord ENABLE_DISCORD} \
+	-DCMAKE_BUILD_TYPE=RelWithDebInfo
 
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir}}
-
+cd build
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
-cp -a data/images/icon.xpm $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.xpm
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/supertux2
+
+%if %{with discord}
+%{__rm} $RPM_BUILD_ROOT%{_includedir}/discord_*.h
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog LEVELDESIGN README TODO
-%attr(755,root,root) %{_bindir}/*
-%{_datadir}/%{name}
-%{_desktopdir}/*.desktop
-%{_pixmapsdir}/*.xpm
+%doc CODINGSTYLE.md CONTRIBUTING.md NEWS.md README.md
+%attr(755,root,root) %{_bindir}/supertux2
+%{_datadir}/games/supertux2
+%{_desktopdir}/supertux2.desktop
+%{_iconsdir}/hicolor/scalable/apps/supertux2.svg
+%{_datadir}/metainfo/supertux2.appdata.xml
+%{_pixmapsdir}/supertux.png
+%{_pixmapsdir}/supertux.xpm
+%if %{with discord}
+%{_libdir}/libdiscord-rpc.so
+%endif
