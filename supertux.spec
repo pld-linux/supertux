@@ -1,3 +1,5 @@
+#
+# Conditional build:
 %bcond_with discord	# Discord integration
 #
 Summary:	Game similar to the original game Super Mario Bros
@@ -11,7 +13,7 @@ Source0:	https://github.com/SuperTux/supertux/releases/download/v%{version}/Supe
 # Source0-md5:	798d5518d3f4672ee0bac92693063c2f
 Patch0:		%{name}-0.6.3-missing-headers.patch
 URL:		https://www.supertux.org
-BuildRequires:	GLM
+BuildRequires:	GLM-devel
 BuildRequires:	OpenAL-devel
 BuildRequires:	OpenGL-devel
 BuildRequires:	SDL2-devel >= 2.0.1
@@ -35,8 +37,6 @@ BuildRequires:	rpmbuild(macros) >= 1.742
 BuildRequires:	zlib-devel
 Requires:	OpenGL
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-#%define	_noautoreqdep	libGL.so.1 libGLU.so.1
 
 %description
 Super Mario Bros style game starring Tux the penguin.
