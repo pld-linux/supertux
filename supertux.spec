@@ -6,7 +6,7 @@ Summary:	Game similar to the original game Super Mario Bros
 Summary(pl.UTF-8):	Gra podobna do oryginalnej gry Super Mario Bros
 Name:		supertux
 Version:	0.6.3
-Release:	2
+Release:	3
 License:	GPL
 Group:		X11/Applications/Games
 Source0:	https://github.com/SuperTux/supertux/releases/download/v%{version}/SuperTux-v%{version}-Source.tar.gz
