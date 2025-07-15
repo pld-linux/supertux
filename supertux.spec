@@ -54,7 +54,7 @@ Gra w stylu Super Mario Bros z pingwinem Tuksem w roli głównej.
 
 %prep
 %setup -q -n SuperTux-v%{version}-Source
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 mkdir -p build
